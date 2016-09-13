@@ -1,1 +1,262 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="http://binwone.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="http://binwone.github.io/" rel="alternate" type="text/html" /><updated>2016-09-13T12:30:56+08:00</updated><id>http://binwone.github.io/</id><title>BinWone's blog</title><subtitle>An amazing website.</subtitle><author><name>Your Name</name></author></feed>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="https://binwone.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://binwone.github.io/" rel="alternate" type="text/html" /><updated>2016-09-13T13:11:59+08:00</updated><id>https://binwone.github.io/</id><title>BinWone's blog</title><subtitle>记录，学习，总结。</subtitle><author><name>BinWone</name><email>binwone@gmail.com</email></author><entry><title>面试算法总结</title><link href="https://binwone.github.io/jekyll/update/%E9%9D%A2%E8%AF%95%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/" rel="alternate" type="text/html" title="面试算法总结" /><published>2016-09-12T10:41:56+08:00</published><updated>2016-09-12T10:41:56+08:00</updated><id>https://binwone.github.io/jekyll/update/面试算法总结</id><content type="html" xml:base="https://binwone.github.io/jekyll/update/%E9%9D%A2%E8%AF%95%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/">&lt;h2 id=&quot;section&quot;&gt;数组&lt;/h2&gt;
+&lt;p&gt;#### 1.全排列Python实现  &lt;br /&gt;
+原题地址：https://oj.leetcode.com/problems/permutations/  &lt;br /&gt;
+题意：Given a collection of numbers, return all possible permutations.  &lt;br /&gt;
+For example,
+[1,2,3] have the following permutations:
+[1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,1,2], and [3,2,1].  &lt;br /&gt;
+解题思路：穷举一个集合的全排列。这个就是python递归巧妙的使用了。&lt;/p&gt;
+
+&lt;p&gt;参考链接：https://discuss.leetcode.com/topic/4091/a-python-code-for-permutation&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# @param num, a list of integer&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# @return a list of lists of integers&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;permute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+        
+    &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;recursiveperm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;final&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;final&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;nexttemp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:]&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;nexttemp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;templist&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:]&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;templist&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;recursiveperm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;templist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;final&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nexttemp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;recursiveperm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;链表&lt;/h2&gt;
+&lt;p&gt;#### 1.链表反转
+参考：http://foofish.net/blog/99/linklist-reverse   &lt;br /&gt;
+##### 迭代实现：
+```Python
+class Node(object):
+    def &lt;strong&gt;init&lt;/strong&gt;(self):
+        self.value = None
+        self.next = None&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;def __str__(self):
+    return str(self.value)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;def reverse_loop(head):
+    if not head or not head.next:
+        return head
+    pre = None&lt;br /&gt;
+    while head:
+        next = head.next   # 缓存当前节点的向后指针，待下次迭代用
+        head.next = pre    # 这一步是反转的关键，相当于把当前的向前指针作为当前节点的向后指针
+        pre = head         # 作为下次迭代时的（当前节点的）向前指针
+        head = next        # 作为下次迭代时的（当前）节点
+    return pre             # 返回头指针，头指针就是迭代到最后一次时的head变量（赋值给了pre）
+&lt;code class=&quot;highlighter-rouge&quot;&gt;   
+##### 递归实现
+&lt;/code&gt;
+def reverse_recursion(head):
+    if not head or not head.next:
+        return head&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;new_head = reverse_recursion(head.next)
+
+head.next.next = head
+head.next = None
+return new_head ``` ## 图 #### 1.DFS &amp;amp; BFS     **深度优先算法**：     （1）访问初始顶点v并标记顶点v已访问。     （2）查找顶点v的第一个邻接顶点w。     （3）若顶点v的邻接顶点w存在，则继续执行；否则回溯到v，再找v的另外一个未访问过的邻接点。     （4）若顶点w尚未被访问，则访问顶点w并标记顶点w为已访问。     （5）继续查找顶点w的下一个邻接顶点wi，如果v取值wi转到步骤（3）。直到连通图中所有顶点全部访问过为止。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;广度优先算法&lt;/strong&gt;：  &lt;br /&gt;
+（1）顶点v入队列。  &lt;br /&gt;
+（2）当队列非空时则继续执行，否则算法结束。  &lt;br /&gt;
+（3）出队列取得队头顶点v；访问顶点v并标记顶点v已被访问。  &lt;br /&gt;
+（4）查找顶点v的第一个邻接顶点col。  &lt;br /&gt;
+（5）若v的邻接顶点col未被访问过的，则col入队列。  &lt;br /&gt;
+（6）继续查找顶点v的另一个新的邻接顶点col，转到步骤（5）。直到顶点v的所有未被访问过的邻接点处理完。转到步骤（2）。
+```
+class Grapy(object):
+    “&quot;”docstring for Grapy”””
+    def &lt;strong&gt;init&lt;/strong&gt;(self, *arg,graph={}):
+        self.graph = graph
+        self.visited = {}&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;def depth_first_traverse(self,root=None):
+    result=[]
+
+    def dft(node):
+        self.visited[node]=True
+        result.append(node)
+        for n in self.graph[node]:
+            if not n in self.visited:
+                dft(n)
+
+    if root:
+        dft(root)
+
+    return result
+
+def breadth_first_traverse(self,root=None):
+    queue = [root]
+    result = [root]
+    def bft():
+        while queue:
+            node = queue.pop(0)
+            self.visited[node] = True
+            for n in self.graph[node]:
+                if (not n in self.visited) and (not n in queue):
+                    queue.append(n)
+                    result.append(n)
+    if root:
+        bft()
+
+    return result ```   ## 排序 #### 1.快速排序 ```Python def quick_sort(ary):
+return qsort(ary,0,len(ary)-1)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;def qsort(ary,left,right):
+    #快排函数，ary为待排序数组，left为待排序的左边界，right为右边界
+    if left &amp;gt;= right : return ary
+    key = ary[left]     #取最左边的为基准数
+    lp = left           #左指针
+    rp = right          #右指针
+    while lp &amp;lt; rp :
+        while ary[rp] &amp;gt;= key and lp &amp;lt; rp :
+            rp -= 1
+        while ary[lp] &amp;lt;= key and lp &amp;lt; rp :
+            lp += 1
+        ary[lp],ary[rp] = ary[rp],ary[lp]
+    ary[left],ary[lp] = ary[lp],ary[left]
+    qsort(ary,left,lp-1)
+    qsort(ary,rp+1,right)
+    return ary
+&lt;code class=&quot;highlighter-rouge&quot;&gt;
+### 2.归并排序    
+&lt;/code&gt;Python
+def merge_sort(ary):
+    if len(ary) &amp;lt;= 1 : return ary
+    num = int(len(ary)/2)       #二分分解
+    left = merge_sort(ary[:num])
+    right = merge_sort(ary[num:])
+    return merge(left,right)    #合并数组&lt;/p&gt;
+
+&lt;p&gt;def merge(left,right):
+    ‘'’合并操作，
+    将两个有序数组left[]和right[]合并成一个大的有序数组’’’
+    l,r = 0,0           #left与right数组的下标指针
+    result = []
+    while l&amp;lt;len(left) and r&amp;lt;len(right) :
+        if left[l] &amp;lt; right[r]:
+            result.append(left[l])
+            l += 1
+        else:
+            result.append(right[r])
+            r += 1
+    result += left[l:]
+    result += right[r:]
+    return result
+&lt;code class=&quot;highlighter-rouge&quot;&gt;
+### 3.堆排序
+&lt;/code&gt;Python
+def heap_sort(ary) :
+    n = len(ary)
+    first = int(n/2-1)       #最后一个非叶子节点
+    for start in range(first,-1,-1) :     #构造大根堆
+        max_heapify(ary,start,n-1)
+    for end in range(n-1,0,-1):           #堆排，将大根堆转换成有序数组
+        ary[end],ary[0] = ary[0],ary[end]
+        max_heapify(ary,0,end-1)
+    return ary&lt;/p&gt;
+
+&lt;p&gt;#最大堆调整：将堆的末端子节点作调整，使得子节点永远小于父节点
+#start为当前需要调整最大堆的位置，end为调整边界
+def max_heapify(ary,start,end):
+    root = start
+    while True :
+        child = root*2 +1               #调整节点的子节点
+        if child &amp;gt; end : break
+        if child+1 &amp;lt;= end and ary[child] &amp;lt; ary[child+1] :
+            child = child+1             #取较大的子节点
+        if ary[root] &amp;lt; ary[child] :     #较大的子节点成为父节点
+            ary[root],ary[child] = ary[child],ary[root]     #交换
+            root = child
+        else :
+            break
+```
+&lt;strong&gt;排序总结&lt;/strong&gt;：  &lt;br /&gt;
+&lt;img src=&quot;http://ww1.sinaimg.cn/large/81b78497jw1emncvtdf1qj20u10afn0r.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;树&lt;/h2&gt;
+&lt;p&gt;#### 1.已知先序中序恢复树
+```
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def &lt;strong&gt;init&lt;/strong&gt;(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None&lt;/p&gt;
+
+&lt;p&gt;class Solution(object):
+    def buildTree(self, preorder, inorder):
+        “””
+        :type preorder: List[int]
+        :type inorder: List[int]
+        :rtype: TreeNode
+        “””
+        if inorder:
+            index = inorder.index(preorder.pop(0))
+            root = TreeNode(inorder[index])
+            root.left = self.buildTree(preorder, inorder[:index])
+            root.right = self.buildTree(preorder, inorder[index+1:])&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;        return root ``` #### 2.已知中序后序恢复树 ``` # Definition for a binary tree node. # class TreeNode(object): #     def __init__(self, x): #         self.val = x #         self.left = None #         self.right = None
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;class Solution(object):
+    def buildTree(self, inorder, postorder):
+        “””
+        :type inorder: List[int]
+        :type postorder: List[int]
+        :rtype: TreeNode
+        “””
+        if inorder:
+            temp = postorder[-1]
+            postorder.remove(temp)  # duplicates do not exist in the tree
+            index = inorder.index(temp)
+            root = TreeNode(temp)
+            root.right = self.buildTree(inorder[index+1:],postorder)
+            root.left = self.buildTree(inorder[:index],postorder)&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;        return root ```
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</content><author><name>BinWone</name><email>binwone@gmail.com</email></author><summary>数组
+#### 1.全排列Python实现  
+原题地址：https://oj.leetcode.com/problems/permutations/  
+题意：Given a collection of numbers, return all possible permutations.  
+For example,
+[1,2,3] have the following permutations:
+[1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,1,2], and [3,2,1].  
+解题思路：穷举一个集合的全排列。这个就是python递归巧妙的使用了。</summary></entry><entry><title>Welcome to Jekyll!</title><link href="https://binwone.github.io/jekyll/update/welcome-to-jekyll/" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2016-09-12T10:04:56+08:00</published><updated>2016-09-12T10:04:56+08:00</updated><id>https://binwone.github.io/jekyll/update/welcome-to-jekyll</id><content type="html" xml:base="https://binwone.github.io/jekyll/update/welcome-to-jekyll/">&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+
+&lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
+
+&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints 'Hi, Tom' to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;</content><author><name>BinWone</name><email>binwone@gmail.com</email></author><summary>You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.</summary></entry></feed>

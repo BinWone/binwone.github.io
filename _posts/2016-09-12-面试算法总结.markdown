@@ -1,0 +1,265 @@
+---
+layout: post
+title:  "面试算法总结"
+date:   2016-09-12 10:41:56 +0800
+categories: jekyll update
+---
+## 数组
+#### 1.全排列Python实现    
+原题地址：https://oj.leetcode.com/problems/permutations/    
+题意：Given a collection of numbers, return all possible permutations.    
+For example,
+[1,2,3] have the following permutations:
+[1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,1,2], and [3,2,1].    
+解题思路：穷举一个集合的全排列。这个就是python递归巧妙的使用了。
+
+参考链接：https://discuss.leetcode.com/topic/4091/a-python-code-for-permutation
+
+{% highlight python %}
+class Solution:
+# @param num, a list of integer
+# @return a list of lists of integers
+def permute(self, num):
+    if len(num)==0:
+        return []
+        
+    result=[]
+    start=[]
+
+    def recursiveperm(list,final,temp):
+        length=len(list)
+
+        if length==0:
+            final.append(temp)
+            return
+
+        for i in range(length):
+            nexttemp=temp[:]
+            nexttemp.append(list[i])
+            templist=list[:]
+            templist.pop(i)
+            recursiveperm(templist,final,nexttemp)
+
+    recursiveperm(num,result,start)
+    return result
+{% endhighlight %}  
+## 链表
+#### 1.链表反转
+参考：http://foofish.net/blog/99/linklist-reverse     
+##### 迭代实现：
+```Python
+class Node(object):
+    def __init__(self):
+        self.value = None
+        self.next = None
+
+    def __str__(self):
+        return str(self.value)
+
+def reverse_loop(head):
+    if not head or not head.next:
+        return head
+    pre = None  
+    while head:
+        next = head.next   # 缓存当前节点的向后指针，待下次迭代用
+        head.next = pre    # 这一步是反转的关键，相当于把当前的向前指针作为当前节点的向后指针
+        pre = head         # 作为下次迭代时的（当前节点的）向前指针
+        head = next        # 作为下次迭代时的（当前）节点
+    return pre             # 返回头指针，头指针就是迭代到最后一次时的head变量（赋值给了pre）
+```    
+##### 递归实现
+```
+def reverse_recursion(head):
+    if not head or not head.next:
+        return head
+
+    new_head = reverse_recursion(head.next)
+
+    head.next.next = head
+    head.next = None
+    return new_head
+```
+## 图
+#### 1.DFS & BFS    
+**深度优先算法**：    
+（1）访问初始顶点v并标记顶点v已访问。    
+（2）查找顶点v的第一个邻接顶点w。    
+（3）若顶点v的邻接顶点w存在，则继续执行；否则回溯到v，再找v的另外一个未访问过的邻接点。    
+（4）若顶点w尚未被访问，则访问顶点w并标记顶点w为已访问。    
+（5）继续查找顶点w的下一个邻接顶点wi，如果v取值wi转到步骤（3）。直到连通图中所有顶点全部访问过为止。
+
+**广度优先算法**：    
+（1）顶点v入队列。    
+（2）当队列非空时则继续执行，否则算法结束。    
+（3）出队列取得队头顶点v；访问顶点v并标记顶点v已被访问。    
+（4）查找顶点v的第一个邻接顶点col。    
+（5）若v的邻接顶点col未被访问过的，则col入队列。    
+（6）继续查找顶点v的另一个新的邻接顶点col，转到步骤（5）。直到顶点v的所有未被访问过的邻接点处理完。转到步骤（2）。
+```
+class Grapy(object):
+    """docstring for Grapy"""
+    def __init__(self, *arg,graph={}):
+        self.graph = graph
+        self.visited = {}
+
+    def depth_first_traverse(self,root=None):
+        result=[]
+
+        def dft(node):
+            self.visited[node]=True
+            result.append(node)
+            for n in self.graph[node]:
+                if not n in self.visited:
+                    dft(n)
+
+        if root:
+            dft(root)
+
+        return result
+
+    def breadth_first_traverse(self,root=None):
+        queue = [root]
+        result = [root]
+        def bft():
+            while queue:
+                node = queue.pop(0)
+                self.visited[node] = True
+                for n in self.graph[node]:
+                    if (not n in self.visited) and (not n in queue):
+                        queue.append(n)
+                        result.append(n)
+        if root:
+            bft()
+
+        return result
+```  
+## 排序
+#### 1.快速排序
+```Python
+def quick_sort(ary):
+    return qsort(ary,0,len(ary)-1)
+
+def qsort(ary,left,right):
+    #快排函数，ary为待排序数组，left为待排序的左边界，right为右边界
+    if left >= right : return ary
+    key = ary[left]     #取最左边的为基准数
+    lp = left           #左指针
+    rp = right          #右指针
+    while lp < rp :
+        while ary[rp] >= key and lp < rp :
+            rp -= 1
+        while ary[lp] <= key and lp < rp :
+            lp += 1
+        ary[lp],ary[rp] = ary[rp],ary[lp]
+    ary[left],ary[lp] = ary[lp],ary[left]
+    qsort(ary,left,lp-1)
+    qsort(ary,rp+1,right)
+    return ary
+```
+### 2.归并排序    
+```Python
+def merge_sort(ary):
+    if len(ary) <= 1 : return ary
+    num = int(len(ary)/2)       #二分分解
+    left = merge_sort(ary[:num])
+    right = merge_sort(ary[num:])
+    return merge(left,right)    #合并数组
+
+def merge(left,right):
+    '''合并操作，
+    将两个有序数组left[]和right[]合并成一个大的有序数组'''
+    l,r = 0,0           #left与right数组的下标指针
+    result = []
+    while l<len(left) and r<len(right) :
+        if left[l] < right[r]:
+            result.append(left[l])
+            l += 1
+        else:
+            result.append(right[r])
+            r += 1
+    result += left[l:]
+    result += right[r:]
+    return result
+```
+### 3.堆排序
+```Python
+def heap_sort(ary) :
+    n = len(ary)
+    first = int(n/2-1)       #最后一个非叶子节点
+    for start in range(first,-1,-1) :     #构造大根堆
+        max_heapify(ary,start,n-1)
+    for end in range(n-1,0,-1):           #堆排，将大根堆转换成有序数组
+        ary[end],ary[0] = ary[0],ary[end]
+        max_heapify(ary,0,end-1)
+    return ary
+
+
+#最大堆调整：将堆的末端子节点作调整，使得子节点永远小于父节点
+#start为当前需要调整最大堆的位置，end为调整边界
+def max_heapify(ary,start,end):
+    root = start
+    while True :
+        child = root*2 +1               #调整节点的子节点
+        if child > end : break
+        if child+1 <= end and ary[child] < ary[child+1] :
+            child = child+1             #取较大的子节点
+        if ary[root] < ary[child] :     #较大的子节点成为父节点
+            ary[root],ary[child] = ary[child],ary[root]     #交换
+            root = child
+        else :
+            break
+```
+**排序总结**：    
+![](http://ww1.sinaimg.cn/large/81b78497jw1emncvtdf1qj20u10afn0r.jpg)
+
+## 树
+#### 1.已知先序中序恢复树
+```
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def buildTree(self, preorder, inorder):
+        """
+        :type preorder: List[int]
+        :type inorder: List[int]
+        :rtype: TreeNode
+        """
+        if inorder:
+            index = inorder.index(preorder.pop(0))
+            root = TreeNode(inorder[index])
+            root.left = self.buildTree(preorder, inorder[:index])
+            root.right = self.buildTree(preorder, inorder[index+1:])
+            
+            return root
+```
+#### 2.已知中序后序恢复树
+```
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def buildTree(self, inorder, postorder):
+        """
+        :type inorder: List[int]
+        :type postorder: List[int]
+        :rtype: TreeNode
+        """
+        if inorder:
+            temp = postorder[-1]
+            postorder.remove(temp)  # duplicates do not exist in the tree
+            index = inorder.index(temp)
+            root = TreeNode(temp)
+            root.right = self.buildTree(inorder[index+1:],postorder)
+            root.left = self.buildTree(inorder[:index],postorder)
+            
+            return root
+```

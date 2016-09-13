@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>http://binwone.github.io/</loc>
+<loc>https://binwone.github.io/jekyll/update/%25E9%259D%25A2%25E8%25AF%2595%25E7%25AE%2597%25E6%25B3%2595%25E6%2580%25BB%25E7%25BB%2593/</loc>
+<lastmod>2016-09-12T10:41:56+08:00</lastmod>
+</url>
+<url>
+<loc>https://binwone.github.io/jekyll/update/welcome-to-jekyll/</loc>
+<lastmod>2016-09-12T10:04:56+08:00</lastmod>
+</url>
+<url>
+<loc>https://binwone.github.io/</loc>
 </url>
 </urlset>
